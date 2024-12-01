@@ -1,0 +1,12 @@
+#+Title: ZIG Solution for AOC 2024
+#+Author: Nathan Abeje
+
+* Requirement
+This solution is tested with zig master (v 0.14 at the moment).
+
+* Quick road to success
+just do zig run on each solutions.
+
+#+begin_src shell
+  zig run 1.zig
+#+end_src
