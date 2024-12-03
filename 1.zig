@@ -2,8 +2,9 @@ const std = @import("std");
 const ArrayList = std.ArrayList;
 const Allocator = std.mem.Allocator;
 const Input = std.meta.Tuple(&.{ ArrayList(u32), ArrayList(u32) });
-const InputError = error{MalformedInput};
 const stdout = std.io.getStdOut();
+
+pub const InputError = error{MalformedInput};
 
 pub fn main() !void {
     // get an allocator
@@ -28,7 +29,7 @@ pub fn main() !void {
 }
 
 // helper method to trim a str containing a number and parse it to u32
-fn trimParse(str: []const u8) !u32 {
+pub fn trimParseUnsigned(str: []const u8) !u32 {
     const numStr = std.mem.trim(u8, str, " ");
     return try std.fmt.parseUnsigned(u32, numStr, 10);
 }
@@ -52,11 +53,11 @@ fn readInputParse(allocator: Allocator) !Input {
         // split each line with 2 spaces
         var it = std.mem.splitSequence(u8, current_line, "  ");
         while (it.next()) |first| {
-            const firstNum = try trimParse(first);
+            const firstNum = try trimParseUnsigned(first);
             // append the first number
             try firstList.append(firstNum);
             if (it.next()) |second| {
-                const secondNum = try trimParse(second);
+                const secondNum = try trimParseUnsigned(second);
                 // append the second number
                 try secondList.append(secondNum);
             } else return InputError.MalformedInput;
